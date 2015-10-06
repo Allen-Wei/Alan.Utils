@@ -52,6 +52,7 @@
     <Compile Include="ExtensionMethods\ExString.cs" />
     <Compile Include="ExtensionMethods\ExConvert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Methods.cs" />
     <Compile Include="UtililyMethods\NameOf.cs" />
   </ItemGroup>
   <ItemGroup>
