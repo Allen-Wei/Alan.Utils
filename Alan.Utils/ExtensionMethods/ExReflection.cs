@@ -55,7 +55,7 @@ namespace Alan.Utils.ExtensionMethods
             {
                 if (callback(dstProp, srcProp))
                 {
-                    dstProp.SetValue(destination, srcProp.GetValue(source, null));
+                    dstProp.SetValue(destination, srcProp.GetValue(source, null), null);
                 }
             });
         }
@@ -221,7 +221,7 @@ namespace Alan.Utils.ExtensionMethods
         {
             var property = current.GetType().GetProperties().FirstOrDefault(prop => prop.Name == propertyName);
             if (property == null) return false;
-            property.SetValue(current, value);
+            property.SetValue(current, value, null);
             return true;
         }
 

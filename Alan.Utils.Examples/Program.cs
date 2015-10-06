@@ -23,7 +23,9 @@ namespace Alan.Utils.Examples
             worker = Worker.Samples().Skip(1).First();
             Console.WriteLine("Worker:{0}", worker.ExToJson());
             student.ExOverrideExclude(worker, stu => new { stu.Name, stu.Klass, stu.Birthday });
+            student.ExSetPropValue("Name", "Thinking.");
             Console.WriteLine("Override Student:{0}", student.ExToJson());
+
 
             var names = ExReflection.CollectNames<Student>(stu => new { stu.Klass, stu.Name, stu.Birthday, stu.Gender });
             Console.ReadKey();
