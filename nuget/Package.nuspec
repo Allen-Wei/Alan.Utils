@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Alan.Utils</id>
+    <version>1.0.1.0</version>
+    <authors>Alan</authors>
+    <owners>Alan</owners>
+    <licenseUrl>https://github.com/Allen-Wei/Alan.Utils</licenseUrl>
+    <projectUrl>https://github.com/Allen-Wei/Alan.Utils</projectUrl>
+    <iconUrl>https://avatars0.githubusercontent.com/u/2927578</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>.Net utils library</description>
+    <releaseNotes>First version.</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>Utils .Net C#</tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="4.0.1" />
+    </dependencies>
+  </metadata>
+</package>
