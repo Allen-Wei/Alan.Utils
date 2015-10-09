@@ -121,9 +121,9 @@ namespace Alan.Utils.ExtensionMethods
         /// <param name="destination">目标对象(被重写的对象)</param>
         /// <param name="source">值来源对象</param>
         /// <param name="properties">需要排除的属性列表表达式</param>
-        public static void ExOverrideExclude<TDestination, TSource>( 
-            this TDestination destination, 
-            TSource source, 
+        public static void ExOverrideExclude<TDestination, TSource>(
+            this TDestination destination,
+            TSource source,
             Expression<Func<TDestination, object>> properties)
         {
             var names = CollectNames(properties);
@@ -278,8 +278,56 @@ namespace Alan.Utils.ExtensionMethods
         /// <returns></returns>
         public static IEnumerable<Dictionary<string, object>> ExToListDictionary<TCurrent>(this IEnumerable<TCurrent> current)
         {
-            return current.Select(obj => obj.ExToDictionary()).ToList();
+            return current.ExToListDictionary(eachCallback: (cur, dict) => dict);
         }
+
+        /// <summary>
+        /// 将对象数组映射到字典列表
+        /// </summary>
+        /// <typeparam name="T">当前对象的类型</typeparam>
+        /// <param name="current">当前对象数组</param>
+        /// <param name="eachCallback">回调</param>
+        /// <returns></returns>
+        public static List<Dictionary<string, object>> ExToListDictionary<T>(this IEnumerable<T> current,
+            Action<Dictionary<string, object>> eachCallback)
+        {
+            return current.ExToListDictionary(eachCallback: (cur, dict)=>eachCallback(dict));
+        }
+
+        /// <summary>
+        /// 将对象数组映射到字典列表
+        /// </summary>
+        /// <typeparam name="T">当前对象的类型</typeparam>
+        /// <param name="current">当前对象数组</param>
+        /// <param name="eachCallback">回调</param>
+        /// <returns></returns>
+        public static List<Dictionary<string, object>> ExToListDictionary<T>(this IEnumerable<T> current,
+            Action<T, Dictionary<string, object>> eachCallback)
+        {
+            var dicts = new List<Dictionary<string, object>>();
+            current.ExForEach(obj =>
+                        {
+                            var dict = obj.ExToDictionary();
+                            eachCallback(obj, dict);
+                            dicts.Add(dict);
+                        });
+            return dicts;
+        }
+
+        /// <summary>
+        /// 将对象数组的属性映射到字典列表
+        /// </summary>
+        /// <typeparam name="TInput">对象类型</typeparam>
+        /// <typeparam name="TOutput">输出类型</typeparam>
+        /// <param name="current">当前对象数组</param>
+        /// <param name="eachCallback">每个字典的操作</param>
+        /// <returns></returns>
+        public static List<TOutput> ExToListDictionary<TInput, TOutput>(this IEnumerable<TInput> current,
+           Func<TInput, Dictionary<string, object>, TOutput> eachCallback)
+        {
+            return current.Select(cur => eachCallback(cur, cur.ExToDictionary())).ToList();
+        }
+
 
     }
 }

@@ -153,6 +153,34 @@
             <param name="current"></param>
             <returns></returns>
         </member>
+        <member name="M:Alan.Utils.ExtensionMethods.ExReflection.ExToListDictionary``1(System.Collections.Generic.IEnumerable{``0},System.Action{System.Collections.Generic.Dictionary{System.String,System.Object}})">
+            <summary>
+            将对象数组映射到字典列表
+            </summary>
+            <typeparam name="T">当前对象的类型</typeparam>
+            <param name="current">当前对象数组</param>
+            <param name="eachCallback">回调</param>
+            <returns></returns>
+        </member>
+        <member name="M:Alan.Utils.ExtensionMethods.ExReflection.ExToListDictionary``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0,System.Collections.Generic.Dictionary{System.String,System.Object}})">
+            <summary>
+            将对象数组映射到字典列表
+            </summary>
+            <typeparam name="T">当前对象的类型</typeparam>
+            <param name="current">当前对象数组</param>
+            <param name="eachCallback">回调</param>
+            <returns></returns>
+        </member>
+        <member name="M:Alan.Utils.ExtensionMethods.ExReflection.ExToListDictionary``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Collections.Generic.Dictionary{System.String,System.Object},``1})">
+            <summary>
+            将对象数组的属性映射到字典列表
+            </summary>
+            <typeparam name="TInput">对象类型</typeparam>
+            <typeparam name="TOutput">输出类型</typeparam>
+            <param name="current">当前对象数组</param>
+            <param name="eachCallback">每个字典的操作</param>
+            <returns></returns>
+        </member>
         <member name="M:Alan.Utils.ExtensionMethods.ExConvert.ExChangeType``1(System.Object,``0)">
             <summary>
             类型转换
@@ -210,6 +238,18 @@
             <typeparam name="T"></typeparam>
             <param name="xml"></param>
             <param name="whenFail"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Alan.Utils.Methods">
+            <summary>
+            实用方法
+            </summary>
+        </member>
+        <member name="M:Alan.Utils.Methods.GenerateRandom(System.Int32)">
+            <summary>
+            获取指定长度的随机数
+            </summary>
+            <param name="length">随机数长度</param>
             <returns></returns>
         </member>
         <member name="T:Alan.Utils.UtililyMethods.Nameof`1">
