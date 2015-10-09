@@ -151,19 +151,19 @@ namespace Alan.Utils.ExtensionMethods
 
         public static int ExToInt(this object obj, int whenFail = -1)
         {
-            if (obj == null)  return whenFail; 
+            if (obj == null) return whenFail;
             int convertValue;
             return int.TryParse(obj.ToString(), out convertValue) ? convertValue : whenFail;
         }
         public static long ExToLong(this object obj, long whenFail = -1)
         {
-            if (obj == null)  return whenFail; 
+            if (obj == null) return whenFail;
             long convertValue;
             return long.TryParse(obj.ToString(), out convertValue) ? convertValue : whenFail;
         }
         public static double ExToDouble(this object obj, int whenFail = -1)
         {
-            if (obj == null)  return whenFail; 
+            if (obj == null) return whenFail;
 
             double convertValue;
             return double.TryParse(obj.ToString(), out convertValue) ? convertValue : whenFail;
@@ -175,6 +175,21 @@ namespace Alan.Utils.ExtensionMethods
 
             decimal value;
             return decimal.TryParse(obj.ToString(), out value) ? value : whenFail;
+        }
+        public static DateTime ExToDateOr1970(this object obj)
+        {
+            return obj.ExToDate(new DateTime(1970, 1, 1));
+        }
+        public static DateTime ExToDateOrNow(this object obj)
+        {
+            return obj.ExToDate(DateTime.Now);
+        }
+        public static DateTime ExToDate(this object obj, DateTime whenFail = default(DateTime))
+        {
+            if (obj == null) return whenFail;
+            DateTime dt;
+            return DateTime.TryParse(obj.ToString(), out dt) ? dt : whenFail;
+            return whenFail;
         }
     }
 }

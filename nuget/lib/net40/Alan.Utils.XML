@@ -97,7 +97,7 @@
             <typeparam name="TSource">值来源类型</typeparam>
             <param name="destination">目标对象(被重写的对象)</param>
             <param name="source">值来源对象</param>
-            <param name="expression">属性列表表达式</param>
+            <param name="properties">属性列表表达式</param>
         </member>
         <member name="M:Alan.Utils.ExtensionMethods.ExReflection.CollectNames``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
             <summary>
@@ -107,22 +107,20 @@
             <param name="expression"></param>
             <returns></returns>
         </member>
-        <member name="M:Alan.Utils.ExtensionMethods.ExReflection.ExGetPropValue``2(``0,System.String,``1)">
+        <member name="M:Alan.Utils.ExtensionMethods.ExReflection.ExGetPropValue``1(System.Object,System.String,``0)">
             <summary>
             动态获取对象属性值
             </summary>
-            <typeparam name="TCurrent">当前对象类型</typeparam>
             <typeparam name="TOut">输出类型</typeparam>
             <param name="current">当前对象</param>
             <param name="propertyName">属性名称</param>
             <param name="defWhenFail">当获取失败时的值</param>
             <returns></returns>
         </member>
-        <member name="M:Alan.Utils.ExtensionMethods.ExReflection.ExSetPropValue``1(``0,System.String,System.Object)">
+        <member name="M:Alan.Utils.ExtensionMethods.ExReflection.ExSetPropValue(System.Object,System.String,System.Object)">
             <summary>
             动态设置对象的值
             </summary>
-            <typeparam name="TCurrent">当前对象类型</typeparam>
             <param name="current">当前对象</param>
             <param name="propertyName">属性名</param>
             <param name="value">属性值</param>

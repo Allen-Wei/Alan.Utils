@@ -155,7 +155,7 @@ namespace Alan.Utils.ExtensionMethods
         /// <typeparam name="TSource">值来源类型</typeparam>
         /// <param name="destination">目标对象(被重写的对象)</param>
         /// <param name="source">值来源对象</param>
-        /// <param name="expression">属性列表表达式</param>
+        /// <param name="properties">属性列表表达式</param>
         public static void ExOverrideInclude<TDestination, TSource>(
             this TDestination destination,
             TSource source,
@@ -184,13 +184,12 @@ namespace Alan.Utils.ExtensionMethods
         /// <summary>
         /// 动态获取对象属性值
         /// </summary>
-        /// <typeparam name="TCurrent">当前对象类型</typeparam>
         /// <typeparam name="TOut">输出类型</typeparam>
         /// <param name="current">当前对象</param>
         /// <param name="propertyName">属性名称</param>
         /// <param name="defWhenFail">当获取失败时的值</param>
         /// <returns></returns>
-        public static TOut ExGetPropValue<TCurrent, TOut>(this TCurrent current,
+        public static TOut ExGetPropValue<TOut>(this object current,
             string propertyName,
             TOut defWhenFail = default(TOut))
         {
@@ -212,12 +211,11 @@ namespace Alan.Utils.ExtensionMethods
         /// <summary>
         /// 动态设置对象的值
         /// </summary>
-        /// <typeparam name="TCurrent">当前对象类型</typeparam>
         /// <param name="current">当前对象</param>
         /// <param name="propertyName">属性名</param>
         /// <param name="value">属性值</param>
         /// <returns>是否设置成功</returns>
-        public static bool ExSetPropValue<TCurrent>(this TCurrent current, string propertyName, object value)
+        public static bool ExSetPropValue(this object current, string propertyName, object value)
         {
             var property = current.GetType().GetProperties().FirstOrDefault(prop => prop.Name == propertyName);
             if (property == null) return false;
