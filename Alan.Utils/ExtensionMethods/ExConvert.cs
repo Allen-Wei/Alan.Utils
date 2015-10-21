@@ -155,6 +155,14 @@ namespace Alan.Utils.ExtensionMethods
             int convertValue;
             return int.TryParse(obj.ToString(), out convertValue) ? convertValue : whenFail;
         }
+
+        public static short ExToShort(this object obj, short whenFail = -1)
+        {
+            if (obj == null) return whenFail;
+            short convertValue;
+            return short.TryParse(obj.ToString(), out convertValue) ? convertValue : whenFail;
+        }
+
         public static long ExToLong(this object obj, long whenFail = -1)
         {
             if (obj == null) return whenFail;
