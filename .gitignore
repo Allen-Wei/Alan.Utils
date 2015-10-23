@@ -198,3 +198,4 @@ FakesAssemblies/
 *.csdat
 
 nuget/lib/net40/
+*..nupkg
