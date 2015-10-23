@@ -196,4 +196,5 @@ FakesAssemblies/
 *.opt
 
 *.csdat
-nuget/lib/net40/**
+
+nuget/lib/net40/

@@ -9,6 +9,9 @@ using System.Xml.Serialization;
 
 namespace Alan.Utils.ExtensionMethods
 {
+    /// <summary>
+    /// 基础类型转化扩展方法
+    /// </summary>
     public static class ExConvert
     {
         /// <summary>
@@ -111,7 +114,7 @@ namespace Alan.Utils.ExtensionMethods
         /// <typeparam name="T"></typeparam>
         /// <param name="xml"></param>
         /// <returns></returns>
-        public static T eXmlToEntity<T>(this string xml)
+        public static T ExXmlToEntity<T>(this string xml)
             where T : class
         {
             XmlSerializer deserializer = new XmlSerializer(typeof(T));
@@ -133,12 +136,12 @@ namespace Alan.Utils.ExtensionMethods
         /// <param name="xml"></param>
         /// <param name="whenFail"></param>
         /// <returns></returns>
-        public static T eXmlTryToEntity<T>(this string xml, T whenFail = default(T))
+        public static T ExXmlTryToEntity<T>(this string xml, T whenFail = default(T))
             where T : class
         {
             try
             {
-                return xml.eXmlToEntity<T>();
+                return xml.ExXmlToEntity<T>();
             }
             catch
             {
@@ -148,7 +151,12 @@ namespace Alan.Utils.ExtensionMethods
 
 
 
-
+        /// <summary>
+        /// 转成int类型
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="whenFail"></param>
+        /// <returns></returns>
         public static int ExToInt(this object obj, int whenFail = -1)
         {
             if (obj == null) return whenFail;
@@ -156,6 +164,12 @@ namespace Alan.Utils.ExtensionMethods
             return int.TryParse(obj.ToString(), out convertValue) ? convertValue : whenFail;
         }
 
+        /// <summary>
+        /// 转成short类型
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="whenFail"></param>
+        /// <returns></returns>
         public static short ExToShort(this object obj, short whenFail = -1)
         {
             if (obj == null) return whenFail;
@@ -163,12 +177,25 @@ namespace Alan.Utils.ExtensionMethods
             return short.TryParse(obj.ToString(), out convertValue) ? convertValue : whenFail;
         }
 
+        /// <summary>
+        /// 转成long类型
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="whenFail"></param>
+        /// <returns></returns>
         public static long ExToLong(this object obj, long whenFail = -1)
         {
             if (obj == null) return whenFail;
             long convertValue;
             return long.TryParse(obj.ToString(), out convertValue) ? convertValue : whenFail;
         }
+
+        /// <summary>
+        /// 转成double类型
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="whenFail"></param>
+        /// <returns></returns>
         public static double ExToDouble(this object obj, int whenFail = -1)
         {
             if (obj == null) return whenFail;
@@ -177,6 +204,12 @@ namespace Alan.Utils.ExtensionMethods
             return double.TryParse(obj.ToString(), out convertValue) ? convertValue : whenFail;
         }
 
+        /// <summary>
+        /// 转成decimal类型
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="whenFail"></param>
+        /// <returns></returns>
         public static decimal ExToDecimal(this object obj, int whenFail = -1)
         {
             if (obj == null) return whenFail;
@@ -184,20 +217,38 @@ namespace Alan.Utils.ExtensionMethods
             decimal value;
             return decimal.TryParse(obj.ToString(), out value) ? value : whenFail;
         }
+
+        /// <summary>
+        /// 转成日期类型, 如果转换失败默认日期使用1970-1-1
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public static DateTime ExToDateOr1970(this object obj)
         {
             return obj.ExToDate(new DateTime(1970, 1, 1));
         }
+
+        /// <summary>
+        /// 转换日期类型, 如果转换失败默认日期使用现在时间
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public static DateTime ExToDateOrNow(this object obj)
         {
             return obj.ExToDate(DateTime.Now);
         }
+
+        /// <summary>
+        /// 转换成日期类型
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="whenFail"></param>
+        /// <returns></returns>
         public static DateTime ExToDate(this object obj, DateTime whenFail = default(DateTime))
         {
             if (obj == null) return whenFail;
             DateTime dt;
             return DateTime.TryParse(obj.ToString(), out dt) ? dt : whenFail;
-            return whenFail;
         }
     }
 }

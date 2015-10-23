@@ -28,6 +28,8 @@ namespace Alan.Utils.Examples
 
 
             var names = ExReflection.CollectNames<Student>(stu => new { stu.Klass, stu.Name, stu.Birthday, stu.Gender });
+
+            var values = Student.Samples().FirstOrDefault().ExGetPropValues(0).ToList();
             Console.ReadKey();
         }
     }

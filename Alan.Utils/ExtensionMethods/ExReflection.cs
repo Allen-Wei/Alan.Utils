@@ -254,6 +254,7 @@ namespace Alan.Utils.ExtensionMethods
                         select new { property.Name, Value };
             var dicts = new Dictionary<string, object>();
             query.ToList().ForEach(nv => dicts.Add(nv.Name, nv.Value));
+
             if (append != null)
             {
                 append.ExForEach(appendDict =>
@@ -289,7 +290,7 @@ namespace Alan.Utils.ExtensionMethods
         public static List<Dictionary<string, object>> ExToListDictionary<T>(this IEnumerable<T> current,
             Action<Dictionary<string, object>> eachCallback)
         {
-            return current.ExToListDictionary(eachCallback: (cur, dict)=>eachCallback(dict));
+            return current.ExToListDictionary(eachCallback: (cur, dict) => eachCallback(dict));
         }
 
         /// <summary>
@@ -327,5 +328,20 @@ namespace Alan.Utils.ExtensionMethods
         }
 
 
+        /// <summary>
+        /// 收集对象所有可读属性的值列表
+        /// </summary>
+        /// <typeparam name="TOutput">对象类型</typeparam>
+        /// <param name="current">当前待收集对象</param>
+        /// <param name="fail">当转换失败时的代替值</param>
+        /// <param name="filter">过滤操作</param>
+        /// <returns></returns>
+        public static IEnumerable<TOutput> ExGetPropValues<TOutput>(this object current, TOutput fail, Func<PropertyInfo, bool> filter = null)
+        {
+            var properties = current.GetType().GetProperties().Where(property => property.CanRead);
+            if (filter != null) properties = properties.Where(filter);
+
+            return properties.Select(property => current.ExGetPropValue<TOutput>(property.Name, fail));
+        }
     }
 }
