@@ -196,7 +196,7 @@ namespace Alan.Utils.ExtensionMethods
             try
             {
                 if (current == null) return defWhenFail;
-                var property = current.GetType().GetProperties().FirstOrDefault(p => p.Name == propertyName);
+                var property = current.GetType().GetProperties().FirstOrDefault(p => p.CanRead && p.Name == propertyName);
                 if (property == null) return defWhenFail;
 
                 var value = property.GetValue(current, null);
@@ -217,14 +217,33 @@ namespace Alan.Utils.ExtensionMethods
         /// <returns>是否设置成功</returns>
         public static bool ExSetPropValue(this object current, string propertyName, object value)
         {
-            var property = current.GetType().GetProperties().FirstOrDefault(prop => prop.Name == propertyName);
+            if (current == null) return false;
+
+            var property = current.GetType().GetProperties().FirstOrDefault(prop => prop.CanWrite && prop.Name == propertyName);
             if (property == null) return false;
             property.SetValue(current, value, null);
             return true;
         }
 
 
+        public static T ExToModel<T>(this Dictionary<string, object> dict)
+            where T : new()
+        {
+            var model = new T();
+            typeof(T)
+               .GetProperties()
+               .Where(property => property.CanWrite)
+               .ToList()
+               .ForEach(property => property.SetValue(model, dict[property.Name], null));
 
+            return model;
+        }
+
+        public static IEnumerable<T> ExToModels<T>(this IEnumerable<Dictionary<string, object>> dicts)
+            where T : new()
+        {
+            return dicts.Select(dict => dict.ExToModel<T>());
+        }
         /// <summary>
         /// 将一个对象转换成字典
         /// </summary>
@@ -252,6 +271,7 @@ namespace Alan.Utils.ExtensionMethods
                         where property.CanRead
                         let Value = property.GetValue(current, null)
                         select new { property.Name, Value };
+
             var dicts = new Dictionary<string, object>();
             query.ToList().ForEach(nv => dicts.Add(nv.Name, nv.Value));
 
@@ -268,6 +288,7 @@ namespace Alan.Utils.ExtensionMethods
 
             return dicts;
         }
+
 
         /// <summary>
         /// 将数组转换成字典列表
@@ -342,6 +363,16 @@ namespace Alan.Utils.ExtensionMethods
             if (filter != null) properties = properties.Where(filter);
 
             return properties.Select(property => current.ExGetPropValue<TOutput>(property.Name, fail));
+        }
+
+        /// <summary>
+        /// 收集对象所有的属性名称
+        /// </summary>
+        /// <param name="current"></param>
+        /// <returns></returns>
+        public static string[] ExGetPropNames(this object current)
+        {
+            return current.GetType().GetProperties().Select(property => property.Name).ToArray();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,32 +17,28 @@ namespace Alan.Utils.Examples
         public static void Run()
         {
             var cnString = ConfigurationSettings.AppSettings["Connection"];
-            SqlConnection connection = new SqlConnection(cnString);
-            SqlCommand command = connection.CreateCommand();
-            command.CommandText = @"
-select * from Roles
-";
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            DataTable table = new DataTable();
-            adapter.Fill(table);
-            adapter.Dispose();
-            command.Dispose();
-            if (connection.State == ConnectionState.Open) connection.Close();
+            var connection = new SqlConnection(cnString);
 
-            var roles = table.ExToList<Role>();
+
+            var result = connection.ExQuery("select * from roles");
+            //var dicts = result.ExGetTable().ExToDicts().ToList();
+            var dynamics = result.ExGetTable().ExToDynamics().ToList();
+            var models = result.ExGetTable().ExToModels<dynamic>().ToList();
+
+            dynamics = connection.ExQuery<dynamic>("select * from roles").ToList();
         }
 
 
 
         public class Role
         {
-            public int KeyId { get; set; }
+            public int Id { get; set; }
             public string Name { get; set; }
             public string Remark { get; set; }
         }
         public class Depart
         {
-            public int KeyId { get; set; }
+            public int Id { get; set; }
             public string Name { get; set; }
             public string Remark { get; set; }
         }
