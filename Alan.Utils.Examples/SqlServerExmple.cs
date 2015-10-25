@@ -24,14 +24,10 @@ select * from Roles
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable table = new DataTable();
             adapter.Fill(table);
+            adapter.Dispose();
+            command.Dispose();
+            if (connection.State == ConnectionState.Open) connection.Close();
 
-            foreach (DataRow row in table.Rows)
-            {
-                foreach (DataColumn column in table.Columns)
-                {
-                    var name = column.ColumnName;
-                }
-            }
             var roles = table.ExToList<Role>();
         }
 
@@ -40,13 +36,13 @@ select * from Roles
         public class Role
         {
             public int KeyId { get; set; }
-            public string RoleName { get; set; }
+            public string Name { get; set; }
             public string Remark { get; set; }
         }
         public class Depart
         {
             public int KeyId { get; set; }
-            public string DepartmentName { get; set; }
+            public string Name { get; set; }
             public string Remark { get; set; }
         }
     }
