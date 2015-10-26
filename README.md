@@ -7,7 +7,7 @@ dotNet utils library.
 
 ## Features
 
-### SQL Server Mutil Result Query
+### SQL Server Multiple Result Query
 `Alan.Utils.Sql.SqlServerExtentions` 和	`Alan.Utils.Sql.DataTableSetExtensions` 提供了一些SQL Server数据库查询和DataTable转换的实用方法.
 下面介绍一下将一次查询的多个集合映射到实体:
 
