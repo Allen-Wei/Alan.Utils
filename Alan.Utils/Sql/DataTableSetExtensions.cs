@@ -240,5 +240,18 @@ namespace Alan.Utils.Sql
 
         }
 
+        /// <summary>
+        /// 将DataTable包裹成DataSet
+        /// </summary>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        public static DataSet ExToDataSet(this DataTable table)
+        {
+            if (table == null) return null;
+            var set = new DataSet();
+            set.Tables.Add(table);
+            return set;
+        }
+
     }
 }
