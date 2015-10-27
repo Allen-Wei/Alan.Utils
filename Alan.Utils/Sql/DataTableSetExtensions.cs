@@ -12,7 +12,7 @@ namespace Alan.Utils.Sql
     /// </summary>
     public static class DataTableSetExtensions
     {
-        
+
         #region DataRow/DataTable To Model/Dictionary/Dynamic
 
         /// <summary>
@@ -40,9 +40,14 @@ namespace Alan.Utils.Sql
             else
                 SetValue = key =>
                 {
-                    var property = properties.FirstOrDefault(p => p.Name.ToLower() == key.ToLower());
-                    if (property == null) return;
-                    property.SetValue(model, row[key], null);
+                    //fix can't convert System.DBNull
+                    try
+                    {
+                        var property = properties.FirstOrDefault(p => p.Name.ToLower() == key.ToLower());
+                        if (property == null) return;
+                        property.SetValue(model, row[key], null);
+                    }
+                    catch { }
                 };
 
             columns.ExForEach(SetValue);
