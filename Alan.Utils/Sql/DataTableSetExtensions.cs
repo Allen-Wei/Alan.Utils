@@ -40,14 +40,12 @@ namespace Alan.Utils.Sql
             else
                 SetValue = key =>
                 {
-                    //fix can't convert System.DBNull
-                    try
-                    {
-                        var property = properties.FirstOrDefault(p => p.Name.ToLower() == key.ToLower());
-                        if (property == null) return;
-                        property.SetValue(model, row[key], null);
-                    }
-                    catch { }
+                    //fix can't convert System.DbNull
+                    var property = properties.FirstOrDefault(p => p.Name.ToLower() == key.ToLower());
+                    if (property == null) return;
+                    var value = row[key];
+                    if (value == DBNull.Value) return;
+                    property.SetValue(model, value, null);
                 };
 
             columns.ExForEach(SetValue);
