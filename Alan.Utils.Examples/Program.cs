@@ -11,9 +11,7 @@ namespace Alan.Utils.Examples
     {
         static void Main(string[] args)
         {
-            string value = null;
-            var intValue = value.ExChangeType<int>();
-            Console.WriteLine(intValue);
+            XmlConvert.Run();
             Console.ReadKey();
         }
     }
