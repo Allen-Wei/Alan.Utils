@@ -17,4 +17,9 @@
       <dependency id="Newtonsoft.Json" version="4.0.1" />
     </dependencies>
   </metadata>
+  <files>
+	  <file src="..\Alan.Utils\bin\Release\Alan.Utils.dll" target="lib\net40\Alan.Utils.dll" />
+	  <file src="..\Alan.Utils\bin\Release\Alan.Utils.XML" target="lib\net40\Alan.Utils.XML" />
+	  <file src="..\Alan.Utils\bin\Release\Alan.Utils.pdb" target="lib\net40\Alan.Utils.pdb" />
+  </files>
 </package>
