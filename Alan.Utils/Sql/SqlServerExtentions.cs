@@ -121,6 +121,39 @@ namespace Alan.Utils.Sql
         #endregion
 
 
+        public static IEnumerable<T> ExQuery<T>(this SqlConnection connection, string sql, int take, int skip)
+            where T : new()
+        {
+            StringBuilder pagingSql = new StringBuilder();
+            pagingSql.Append("declare @_temp table (_Id bigint identity(1,1) not null ");
+            var names = Alan.Utils.ExtensionMethods.ExReflection.ExGetPropNames<T>();
 
+            return new List<T>();
+        }
+
+        public static string GetMatchedSqlType(Type propertyType)
+        {
+            var matched = SqlTypeMap.FirstOrDefault(dict => dict.Key == propertyType);
+            return matched.Value;
+        }
+        private static Dictionary<Type, string> SqlTypeMap
+        {
+            get
+            {
+                return new Dictionary<Type, string>()
+                {
+                    { typeof(int), "int" }
+                    , { typeof(long), "long" }
+                    , { typeof(byte), "byte" }
+                    , { typeof(short), "smallint" }
+                    , { typeof(DateTime), "datetime" }
+                    , { typeof(string), "varchar(max)" }
+                    , { typeof(decimal), "money" }
+                    , { typeof(double), "float" }
+                    , { typeof(float), "float" }
+                    , { typeof(Guid), "uniqueidentityfier" }
+                };
+            }
+        }
     }
 }

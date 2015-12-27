@@ -374,5 +374,15 @@ namespace Alan.Utils.ExtensionMethods
         {
             return current.GetType().GetProperties().Select(property => property.Name).ToArray();
         }
+
+        /// <summary>
+        /// 收集泛型T的所有属性名
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static string[] ExGetPropNames<T>()
+        {
+            return typeof(T).GetProperties().Select(property => property.Name).ToArray();
+        }
     }
 }

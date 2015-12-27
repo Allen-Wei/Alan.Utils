@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Alan.Utils.Sql;
+using Alan.Utils.ExtensionMethods;
 
 
 namespace Alan.Utils.Examples
@@ -16,6 +17,11 @@ namespace Alan.Utils.Examples
     {
         public static void Run()
         {
+            var model = new Role();
+            var properties = model.GetType().GetProperties().ToList();
+            var dbtypes = properties.Select(pro => SqlServerExtentions.GetMatchedSqlType(pro.GetType())).ToList();
+
+
             var cnString = ConfigurationSettings.AppSettings["Connection"];
             var connection = new SqlConnection(cnString);
 
