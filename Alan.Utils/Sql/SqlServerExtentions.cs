@@ -113,10 +113,35 @@ namespace Alan.Utils.Sql
                 , tables[1].ExToModels<T2>()
                 , tables[2].ExToModels<T3>()
                 , tables[3].ExToModels<T4>()
-                , tables[3].ExToModels<T5>()
+                , tables[4].ExToModels<T5>()
                 );
 
         }
+
+
+        public static Tuple<IEnumerable<T1>, IEnumerable<T2>, IEnumerable<T3>, IEnumerable<T4>, IEnumerable<T5>, IEnumerable<T6>> ExQuery<T1, T2, T3, T4, T5, T6>(this SqlConnection connection, string sql, object parameters = null)
+   where T1 : new()
+   where T2 : new()
+   where T3 : new()
+   where T4 : new()
+   where T5 : new()
+   where T6 : new()
+        {
+            var tables = connection.ExQuery(sql, parameters).Tables.Cast<DataTable>().ToList();
+            if (tables.Count < 6) throw new Exception("返回结果集数量不能小于6");
+
+            return Tuple.Create(
+                tables[0].ExToModels<T1>()
+                , tables[1].ExToModels<T2>()
+                , tables[2].ExToModels<T3>()
+                , tables[3].ExToModels<T4>()
+                , tables[4].ExToModels<T5>()
+                , tables[5].ExToModels<T6>()
+                );
+
+        }
+
+
         #endregion
 
 

@@ -11,7 +11,7 @@ namespace Alan.Utils.Examples
     {
         static void Main(string[] args)
         {
-            SqlServerExmple.Run();
+            XmlConvert.Run();
             Console.ReadKey();
         }
     }

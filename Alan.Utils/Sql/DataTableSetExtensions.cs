@@ -11,7 +11,7 @@ namespace Alan.Utils.Sql
     /// </summary>
     public static class DataTableSetExtensions
     {
-        
+
         #region DataRow/DataTable To Model/Dictionary/Dynamic
 
         /// <summary>
@@ -39,9 +39,12 @@ namespace Alan.Utils.Sql
             else
                 SetValue = key =>
                 {
+                    //fix can't convert System.DbNull
                     var property = properties.FirstOrDefault(p => p.Name.ToLower() == key.ToLower());
                     if (property == null) return;
-                    property.SetValue(model, row[key], null);
+                    var value = row[key];
+                    if (value == DBNull.Value) return;
+                    property.SetValue(model, value, null);
                 };
 
             columns.ExForEach(SetValue);
@@ -237,6 +240,19 @@ namespace Alan.Utils.Sql
             if (set == null) return null;
             return set.Tables[table];
 
+        }
+
+        /// <summary>
+        /// 将DataTable包裹成DataSet
+        /// </summary>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        public static DataSet ExToDataSet(this DataTable table)
+        {
+            if (table == null) return null;
+            var set = new DataSet();
+            set.Tables.Add(table);
+            return set;
         }
 
     }
