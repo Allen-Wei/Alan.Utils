@@ -13,7 +13,11 @@ namespace Alan.Utils.Sql
     public static class SqlServerExtentions
     {
 
-
+        /// <summary>
+        /// 获取 SqlConnection 对象
+        /// </summary>
+        /// <param name="connection"></param>
+        /// <param name="callback"></param>
         public static void ExGetConnection(this string connection, Action<SqlConnection> callback)
         {
             using (SqlConnection cn = new SqlConnection(connection))
@@ -23,15 +27,21 @@ namespace Alan.Utils.Sql
             }
         }
 
-        public static DataSet ExQuery(this SqlConnection connection, string sql, object parameters = null)
+        /// <summary>
+        /// 执行SQL查询
+        /// </summary>
+        /// <param name="connection">SqlConnection对象</param>
+        /// <param name="sql">SQL语句</param>
+        /// <param name="parameters">SQL查询使用的参数</param>
+        /// <returns></returns>
+        public static DataSet ExQuery(this SqlConnection connection, string sql, Dictionary<string, object> parameters)
         {
             using (SqlCommand command = connection.CreateCommand())
             {
                 command.CommandText = sql;
                 if (parameters != null)
                 {
-                    var dicts = parameters.ExToDictionary();
-                    foreach (var dict in dicts)
+                    foreach (KeyValuePair<string, object> dict in parameters)
                     {
                         command.Parameters.AddWithValue(dict.Key, dict.Value);
                     }
@@ -44,6 +54,32 @@ namespace Alan.Utils.Sql
                     return dataSet;
                 }
             }
+
+        }
+
+        /// <summary>
+        /// 执行SQL查询
+        /// </summary>
+        /// <param name="connection">SQLConnection 连接对象</param>
+        /// <param name="sql">SQL语句</param>
+        /// <returns></returns>
+        public static DataSet ExQuery(this SqlConnection connection, string sql)
+        {
+            return connection.ExQuery(sql, new Dictionary<string, object>());
+
+        }
+
+        /// <summary>
+        /// 执行SQL查询
+        /// </summary>
+        /// <param name="connection">SqlConnection 连接对象</param>
+        /// <param name="sql">SQL语句</param>
+        /// <param name="parameters">SQL查询参数</param>
+        /// <returns></returns>
+        public static DataSet ExQuery(this SqlConnection connection, string sql, object parameters)
+        {
+            if (parameters == null) return connection.ExQuery(sql, new Dictionary<string, object>());
+            return connection.ExQuery(sql, parameters.ExToDictionary());
 
         }
 
