@@ -33,7 +33,7 @@ namespace Alan.Utils.Sql
         /// <param name="sql">SQL语句</param>
         /// <param name="parameters">SQL查询使用的参数</param>
         /// <returns></returns>
-        public static DataSet ExQuery(this SqlConnection connection, string sql, Dictionary<string, object> parameters)
+        public static DataSet ExQuery(this SqlConnection connection, string sql, IDictionary<string, object> parameters)
         {
             using (SqlCommand command = connection.CreateCommand())
             {
@@ -68,23 +68,22 @@ namespace Alan.Utils.Sql
 
         }
 
-        /// <summary>
-        /// 执行SQL查询
-        /// </summary>
-        /// <param name="connection">SqlConnection 连接对象</param>
-        /// <param name="sql">SQL语句</param>
-        /// <param name="parameters">SQL查询参数</param>
-        /// <returns></returns>
-        public static DataSet ExQuery(this SqlConnection connection, string sql, object parameters)
-        {
-            if (parameters == null) return connection.ExQuery(sql, new Dictionary<string, object>());
-            return connection.ExQuery(sql, parameters.ExToDictionary());
-
-        }
+        ///// <summary>
+        ///// 执行SQL查询
+        ///// </summary>
+        ///// <param name="connection">SqlConnection 连接对象</param>
+        ///// <param name="sql">SQL语句</param>
+        ///// <param name="parameters">SQL查询参数</param>
+        ///// <returns></returns>
+        //public static DataSet ExQuery(this SqlConnection connection, string sql, object parameters)
+        //{
+        //    if (parameters == null) return connection.ExQuery(sql, new Dictionary<string, object>());
+        //    return connection.ExQuery(sql, parameters.ExToDictionary());
+        //}
 
 
         #region Tuple Query
-        public static IEnumerable<T> ExQuery<T>(this SqlConnection connection, string sql, object parameters = null)
+        public static IEnumerable<T> ExQuery<T>(this SqlConnection connection, string sql, IDictionary<string, object> parameters = null)
             where T : new()
         {
             var tables = connection.ExQuery(sql, parameters).Tables.Cast<DataTable>().ToList();
@@ -92,7 +91,7 @@ namespace Alan.Utils.Sql
             return tables[0].ExToModels<T>();
         }
 
-        public static Tuple<IEnumerable<T1>, IEnumerable<T2>> ExQuery<T1, T2>(this SqlConnection connection, string sql, object parameters = null)
+        public static Tuple<IEnumerable<T1>, IEnumerable<T2>> ExQuery<T1, T2>(this SqlConnection connection, string sql, IDictionary<string, object> parameters = null)
             where T1 : new()
             where T2 : new()
         {
@@ -103,7 +102,7 @@ namespace Alan.Utils.Sql
 
         }
 
-        public static Tuple<IEnumerable<T1>, IEnumerable<T2>, IEnumerable<T3>> ExQuery<T1, T2, T3>(this SqlConnection connection, string sql, object parameters = null)
+        public static Tuple<IEnumerable<T1>, IEnumerable<T2>, IEnumerable<T3>> ExQuery<T1, T2, T3>(this SqlConnection connection, string sql, IDictionary<string, object> parameters = null)
     where T1 : new()
     where T2 : new()
     where T3 : new()
@@ -116,7 +115,7 @@ namespace Alan.Utils.Sql
         }
 
 
-        public static Tuple<IEnumerable<T1>, IEnumerable<T2>, IEnumerable<T3>, IEnumerable<T4>> ExQuery<T1, T2, T3, T4>(this SqlConnection connection, string sql, object parameters = null)
+        public static Tuple<IEnumerable<T1>, IEnumerable<T2>, IEnumerable<T3>, IEnumerable<T4>> ExQuery<T1, T2, T3, T4>(this SqlConnection connection, string sql, IDictionary<string, object> parameters = null)
     where T1 : new()
     where T2 : new()
     where T3 : new()
@@ -134,7 +133,7 @@ namespace Alan.Utils.Sql
 
         }
 
-        public static Tuple<IEnumerable<T1>, IEnumerable<T2>, IEnumerable<T3>, IEnumerable<T4>, IEnumerable<T5>> ExQuery<T1, T2, T3, T4, T5>(this SqlConnection connection, string sql, object parameters = null)
+        public static Tuple<IEnumerable<T1>, IEnumerable<T2>, IEnumerable<T3>, IEnumerable<T4>, IEnumerable<T5>> ExQuery<T1, T2, T3, T4, T5>(this SqlConnection connection, string sql, IDictionary<string, object> parameters = null)
    where T1 : new()
    where T2 : new()
    where T3 : new()
@@ -155,7 +154,7 @@ namespace Alan.Utils.Sql
         }
 
 
-        public static Tuple<IEnumerable<T1>, IEnumerable<T2>, IEnumerable<T3>, IEnumerable<T4>, IEnumerable<T5>, IEnumerable<T6>> ExQuery<T1, T2, T3, T4, T5, T6>(this SqlConnection connection, string sql, object parameters = null)
+        public static Tuple<IEnumerable<T1>, IEnumerable<T2>, IEnumerable<T3>, IEnumerable<T4>, IEnumerable<T5>, IEnumerable<T6>> ExQuery<T1, T2, T3, T4, T5, T6>(this SqlConnection connection, string sql, IDictionary<string, object> parameters = null)
    where T1 : new()
    where T2 : new()
    where T3 : new()

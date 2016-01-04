@@ -11,6 +11,8 @@ namespace Alan.Utils.Examples
     {
         static void Main(string[] args)
         {
+            Alan.Utils.ExtensionMethods.ExReflection.ExToDictionary(new {hello = "name"});
+            new {hello="name"}.ExToDictionary();
             XmlConvert.Run();
             Console.ReadKey();
         }

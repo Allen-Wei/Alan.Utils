@@ -30,7 +30,7 @@ select * from Roles where RoleName = @roleName
 select * from Departments where DepartmentName = @departName
 ";
 
-            var tuples = connection.ExQuery<Role, Depart>(sql, new { roleName = "Root", departName = "HR" });
+            var tuples = connection.ExQuery<Role, Depart>(sql, new { roleName = "Root", departName = "HR" }.ExToDictionary());
             foreach (var role in tuples.Item1)
             {
                 Console.WriteLine(role);

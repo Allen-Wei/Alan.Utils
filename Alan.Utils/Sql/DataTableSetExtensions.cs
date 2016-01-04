@@ -72,7 +72,7 @@ namespace Alan.Utils.Sql
         /// <param name="row"></param>
         /// <param name="columns"></param>
         /// <returns></returns>
-        public static IDictionary<string, object> ExToDict(this DataRow row, IEnumerable<string> columns)
+        public static Dictionary<string, object> ExToDict(this DataRow row, IEnumerable<string> columns)
         {
             var model = new Dictionary<string, object>();
             columns.Distinct().ExForEach(col => model.Add(col, row[col]));
@@ -84,11 +84,11 @@ namespace Alan.Utils.Sql
         /// </summary>
         /// <param name="table"></param>
         /// <returns></returns>
-        public static IEnumerable<IDictionary<string, object>> ExToDicts(this DataTable table)
+        public static List<Dictionary<string, object>> ExToDicts(this DataTable table)
         {
             var columns = table.Columns.Cast<DataColumn>().Select(col => col.ColumnName).ToArray();
 
-            return table.Rows.Cast<DataRow>().Select(row => row.ExToDict(columns));
+            return table.Rows.Cast<DataRow>().Select(row => row.ExToDict(columns)).ToList();
         }
 
 
