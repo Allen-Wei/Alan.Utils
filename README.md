@@ -38,4 +38,4 @@ dotNet utils library.
     }
 
 
-嗯, 两种写法看上去都很像 [Dapper.Net](https://github.com/StackExchange/dapper-dot-net), 利用了C#扩展方法. 第二种写法对数据库只做了一次查询操作, 然后返回多个强类型的结果集, 是不是感觉比第一种快捷了很多?
+嗯, 两种写法看上去都很像 [Dapper.Net](https://github.com/StackExchange/dapper-dot-net), 利用了C#扩展方法. 第二种写法对数据库只做了一次查询操作, 然后返回多个强类型的结果集, 是不是感觉比第一种快捷了很多? [例子](https://github.com/Allen-Wei/Alan.Utils/blob/master/Alan.Utils.Examples/SqlServerExmple.cs)

@@ -1,5 +1,4 @@
-﻿using Alan.Utils.ExtensionMethods;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -373,6 +372,16 @@ namespace Alan.Utils.ExtensionMethods
         public static string[] ExGetPropNames(this object current)
         {
             return current.GetType().GetProperties().Select(property => property.Name).ToArray();
+        }
+
+        /// <summary>
+        /// 收集泛型T的所有属性名
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static string[] ExGetPropNames<T>()
+        {
+            return typeof(T).GetProperties().Select(property => property.Name).ToArray();
         }
     }
 }
