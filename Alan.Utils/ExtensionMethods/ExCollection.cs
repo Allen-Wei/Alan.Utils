@@ -35,5 +35,80 @@ namespace Alan.Utils.ExtensionMethods
         }
 
 
+        #region 数据分组
+
+        /// <summary>
+        /// 将数据按每组 countPerGroup 个进行分组
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">数据</param>
+        /// <param name="countPerGroup">每组数量</param>
+        /// <returns></returns>
+        public static List<IEnumerable<T>> Group<T>(this IEnumerable<T> source, int countPerGroup)
+        {
+            List<IEnumerable<T>> groups = new List<IEnumerable<T>>();
+            if (!source.Any()) return groups;
+
+            var groupsCount = Math.Ceiling((double)source.Count() / countPerGroup);
+
+            for (var index = 0; index < groupsCount; index++)
+            {
+                var group = source.Skip(index * countPerGroup).Take(countPerGroup);
+                groups.Add(group);
+            }
+            return groups;
+        }
+
+        /// <summary>
+        /// 将数据分割成 groupsCount 组
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">数据</param>
+        /// <param name="groupsCount">分割成多少组</param>
+        /// <returns></returns>
+        public static List<IEnumerable<T>> Split<T>(this IEnumerable<T> source, int groupsCount)
+        {
+            List<IEnumerable<T>> groups = new List<IEnumerable<T>>();
+            if (!source.Any()) return groups.ToList();
+
+            var sourceCount = source.Count();
+            if (sourceCount <= groupsCount)
+            {
+                groups.Add(source);
+                return groups;
+            }
+
+            int countPerGrouop = (int)Math.Ceiling((double)sourceCount / groupsCount);
+
+            for (int index = 0; index < groupsCount; index++)
+            {
+                var group = source.Skip(index * countPerGrouop).Take(countPerGrouop);
+                groups.Add(group);
+            }
+
+            return groups;
+        }
+
+
+        /// <summary>
+        /// 将数据分割成指定部分
+        /// via http://stackoverflow.com/questions/438188/split-a-collection-into-n-parts-with-linq 
+        /// 这个方法会打乱原始数据的顺序
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="parts"></param>
+        /// <returns></returns>
+        public static IEnumerable<IEnumerable<T>> SplitUnOrder<T>(this IEnumerable<T> list, int parts)
+        {
+            int i = 0;
+            var splits = from item in list
+                         group item by i++ % parts into part
+                         select part;
+            return splits;
+        }
+
+        #endregion
+
     }
 }
