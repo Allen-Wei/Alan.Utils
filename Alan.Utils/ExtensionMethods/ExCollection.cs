@@ -44,7 +44,7 @@ namespace Alan.Utils.ExtensionMethods
         /// <param name="source">数据</param>
         /// <param name="countPerGroup">每组数量</param>
         /// <returns></returns>
-        public static List<IEnumerable<T>> Group<T>(this IEnumerable<T> source, int countPerGroup)
+        public static List<IEnumerable<T>> ExGroup<T>(this IEnumerable<T> source, int countPerGroup)
         {
             List<IEnumerable<T>> groups = new List<IEnumerable<T>>();
             if (!source.Any()) return groups;
@@ -66,7 +66,7 @@ namespace Alan.Utils.ExtensionMethods
         /// <param name="source">数据</param>
         /// <param name="groupsCount">分割成多少组</param>
         /// <returns></returns>
-        public static List<IEnumerable<T>> Split<T>(this IEnumerable<T> source, int groupsCount)
+        public static List<IEnumerable<T>> ExSplit<T>(this IEnumerable<T> source, int groupsCount)
         {
             List<IEnumerable<T>> groups = new List<IEnumerable<T>>();
             if (!source.Any()) return groups.ToList();
@@ -99,7 +99,7 @@ namespace Alan.Utils.ExtensionMethods
         /// <param name="list"></param>
         /// <param name="parts"></param>
         /// <returns></returns>
-        public static IEnumerable<IEnumerable<T>> SplitUnOrder<T>(this IEnumerable<T> list, int parts)
+        public static IEnumerable<IEnumerable<T>> ExSplitUnOrder<T>(this IEnumerable<T> list, int parts)
         {
             int i = 0;
             var splits = from item in list
